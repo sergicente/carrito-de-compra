@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Carrito de Compra</title>
+
+<body>
+    <div class="contenedor">
+        <div id="carrito">
+            <h1>Carrito de compra</h1>
+        
+            <table>
+            </table>
+        </div>
+        <div id="resumen">
+            <h1>Resumen</h1>
+            <div id="totales">
+                <p>
+                    <span>Subtotal</span>
+                    <span class="right" id="subtotal">0 €</span>
+                </p>
+                <p>
+                    <span>IVA 21%</span>
+                    <span class="right" id="iva">0 €</span>
+                </p>
+                <br>
+                <hr>
+                <br>
+                <p class="resumenTotal">
+                    <span>Total</span>
+                    <span class="right" id="total">0 €</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="contenedor">
+        <div id="productos">
+            <h1>Listado de productos</h1>
+            <table>
+                <tr>
+                    <th>Producto</th>
+                    <th>SKU</th>
+                    <th>Precio</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</head>
+</body>
+</html>
