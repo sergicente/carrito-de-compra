@@ -3,11 +3,24 @@ import Carrito from "./Carrito.js";
 const tablaProductos = document.querySelector("#productos table");
 const tablaCarrito = document.querySelector("#carrito table");
 const subtotal = document.querySelector("#subtotal");
-const botonLS = document.querySelector("btnLocalStorage");
+const botonLocalStorage = document.querySelector("#btnLocalStorage");
 const iva = document.querySelector("#iva");
 const total = document.querySelector("#total");
 const carrito = new Carrito();
 let catalogoProductos = [];
+
+
+botonLocalStorage.addEventListener("click", function(){
+    if(botonLocalStorage.textContent === "Activado"){
+        botonLocalStorage.textContent = "Desactivado";
+        botonLocalStorage.classList.remove('activado');
+    }else{
+        botonLocalStorage.textContent = "Activado";
+        botonLocalStorage.classList.add('activado');
+        guardarEnLocalStorage();
+    }
+    localStorage.setItem("botonTexto", botonLocalStorage.textContent);
+})
 
 
 
@@ -108,12 +121,9 @@ function actualizarCarrito() {
             actualizarCarrito();
         });
     }
+    guardarEnLocalStorage();
 
-    // Convertimos el carrito a una cadena JSON
-    const carritoComoJSON = JSON.stringify(carrito.productos);
 
-    // Guardar la cadena en localStorage con el nombre carrito
-    localStorage.setItem("carrito", carritoComoJSON);
 }
 
 // Función para buscar un producto en el carrito
@@ -127,11 +137,34 @@ function buscarProductoEnCarrito(sku) {
     return null;
 }
 
+function guardarEnLocalStorage(){
+    // Convertimos el carrito a una cadena JSON
+    const carritoComoJSON = JSON.stringify(carrito.productos);
+    // Guardar la cadena en localStorage con el nombre carrito
+    localStorage.setItem("carrito", carritoComoJSON);
+}
+
 // Obtenemos el carrito desde el Local Storage una vez se carga la página
 window.onload = function () {
+    // Asignamos un posible carrito del localStorage a una variable
     const carritoEnJson = localStorage.getItem("carrito");
-    if (carritoEnJson) {
-        carrito.productos = JSON.parse(carritoEnJson);
+
+    // Si existe la posición del botón, recuperarla y asignarla al botón
+    const botonTextoGuardado = localStorage.getItem("botonTexto");
+    if (botonTextoGuardado) {
+        botonLocalStorage.textContent = botonTextoGuardado;
     }
-    actualizarCarrito();
+
+    // Actualizamos la clase del botón según su estado almacenado
+    if (botonLocalStorage.textContent === "Activado") {
+        botonLocalStorage.classList.add('activado');
+    } else {
+        botonLocalStorage.classList.remove('activado');
+    }
+
+    // Cargamos el carrito solo si el botón está activado
+    if (carritoEnJson && botonLocalStorage.textContent === "Activado") {
+        carrito.productos = JSON.parse(carritoEnJson);
+        actualizarCarrito();
+    }
 };

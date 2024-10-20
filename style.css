@@ -1,11 +1,13 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: monospace;
+
 }
 
 body {
     background-image: linear-gradient(to top, #20324a 0%, #4f6e86 100%);
-    font-family: sans-serif;
     color: #d9dee8;
     font-size: 14px;
 }
@@ -72,7 +74,7 @@ h1 {
 
 #carrito {
     padding: 4vh 5vh;
-    width: 75% !important;
+    width: 70% !important;
 }
 
 #resumen {
@@ -81,7 +83,7 @@ h1 {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     padding: 4vh;
-    width: 25%;
+    width: 30%;
 }
 
 #productos {
@@ -98,6 +100,29 @@ h1 {
 
 }
 
+#btnLocalStorage {
+    margin-left: 50px;
+    background-color: #ef6c5c;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #934439 0 -3px 0 inset;
+    border-radius: 4px;
+    border-width: 0;
+    color:white;
+    cursor: pointer;
+    height: 40px;
+    width: 140px;
+    text-align: center;
+    transition: transform .15s;
+    font-size: 14px;
+    margin-top: 1em;
+}
+
+.activado {
+    background-color: #5dc34e !important;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #418736 0 -3px 0 inset !important;
+}
+
+
+
 .contenedor {
     background-color: rgba(200, 200, 200, 0.1);
     margin: 10vh auto;
@@ -109,6 +134,18 @@ h1 {
     min-height: 300px;
 }
 
+.mensaje {
+    position: fixed;
+    bottom: 0px;
+    background-color: rgba(73, 73, 73, 0.356);
+    padding: 2%;
+    width: 100%;
+    box-shadow: inset 0px 1px 1px #fff3, 0px 1.5px 3px rgba(39, 46, 71, 0.2);
+    text-align: center;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
 .right {
     text-align: right;
 }
@@ -117,39 +154,80 @@ h1 {
 .botCantMas,
 .botCantMenos,
 .comprar {
-    padding: 6px 10px;
-    margin: 0 7px;
-    border: none;
-    font-size: 14px;
-    font-weight: 500;
-
+    background-color: #d6d6d6;
+    border-radius: 4px;
+    border-width: 0;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #aeaeba 0 -3px 0 inset;
+    color: #36395A;
+    cursor: pointer;
+    height: 35px;
+    text-align: center;
+    transition: transform .15s;
+    font-size: 12px;
+    padding-left: 12px;
+    padding-right: 12px;
 }
 
-.comprar,
 .botCantMas,
-.botCantMenos {
-    background-color: #ffffff2c;
-    color: #d9dee8;
-    border-radius: 5px;
-    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.20);
-
+.botCantMenos{
+    height: 25px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 .comprar:hover,
 .botCantMas:hover,
-.botCantMenos:hover {
-    background-color: #e4e4e420;
+.botCantMenos:hover,
+#btnLocalStorage:hover {
+    transform: translateY(-1px);
 }
 
 .comprar:active,
 .botCantMas:active,
-.botCantMenos:active {
-    background-color: #e4e4e400;
-    transform: translateY(1px);
-
+.botCantMenos:active,
+#btnLocalStorage:active {
+    transform: translateY(2px);
 }
 
 .resumenTotal {
     font-weight: 600;
     font-size: 18px;
 }
+
+
+@media (max-width: 600px) {
+    #productos table td {
+        min-width: 00px;
+    }
+    td {
+        min-width: 0px;
+        height: 80px;
+        border-top: 1px solid rgba(255, 255, 255, 0.5);
+    }
+    th{
+        min-width:33%;
+    }
+
+    #carrito{
+        width: 100%!important;
+    }
+
+    #resumen{
+        width: 100%;
+    }
+
+    .contenedor{
+        flex-wrap: wrap;
+    }
+
+
+    #carrito>table tr th:nth-child(3),
+    #carrito>table tr td:nth-child(3),
+    #productos>table tr th:nth-child(2),
+    #productos>table tr th:nth-child(3),
+    #productos>table tr td:nth-child(2),
+    #productos>table tr td:nth-child(3)
+     {
+        display:none;
+}
+  }
