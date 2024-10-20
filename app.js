@@ -3,10 +3,13 @@ import Carrito from "./Carrito.js";
 const tablaProductos = document.querySelector("#productos table");
 const tablaCarrito = document.querySelector("#carrito table");
 const subtotal = document.querySelector("#subtotal");
+const botonLS = document.querySelector("btnLocalStorage");
 const iva = document.querySelector("#iva");
 const total = document.querySelector("#total");
 const carrito = new Carrito();
 let catalogoProductos = [];
+
+
 
 // Obtenemos los productos desde la API utilizando al forma moderna con arrow functions
 fetch("https://jsonblob.com/api/jsonBlob/1294949121184882688")
@@ -105,6 +108,12 @@ function actualizarCarrito() {
             actualizarCarrito();
         });
     }
+
+    // Convertimos el carrito a una cadena JSON
+    const carritoComoJSON = JSON.stringify(carrito.productos);
+
+    // Guardar la cadena en localStorage con el nombre carrito
+    localStorage.setItem("carrito", carritoComoJSON);
 }
 
 // Función para buscar un producto en el carrito
@@ -117,3 +126,12 @@ function buscarProductoEnCarrito(sku) {
     }
     return null;
 }
+
+// Obtenemos el carrito desde el Local Storage una vez se carga la página
+window.onload = function () {
+    const carritoEnJson = localStorage.getItem("carrito");
+    if (carritoEnJson) {
+        carrito.productos = JSON.parse(carritoEnJson);
+    }
+    actualizarCarrito();
+};
