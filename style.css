@@ -93,7 +93,7 @@ footer{
 
 
 #carrito {
-    padding: 4vh 4vh;
+    padding: 5em 4em;
     width: 65% !important;
 }
 
@@ -102,13 +102,13 @@ footer{
     box-shadow: inset 0px 1px 1px #fff3, 0px 1.5px 3px rgba(39, 46, 71, 0.2);
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    padding: 4vh;
+    padding: 5em 4em;
     width: 35%;
     color:white;
 }
 
 #productos {
-    padding: 4vh 5vh;
+    padding: 5em 5%;
     margin: auto;
 }
 
