@@ -7,6 +7,8 @@
     <title>Carrito de Compra</title>
 
 <body>
+    <div class="mensaje">Local Storage <button id="btnLocalStorage" class="activado">Activado</button></div>
+    <div class="separador"><p></p></div>
     <div class="contenedor">
         <div id="carrito">
             <h1>Carrito de compra</h1>
@@ -15,27 +17,25 @@
         </div>
         <div id="resumen">
             <h1>Resumen</h1>
-            <div id="totales">
-                <p>
-                    <span>Subtotal</span>
-                    <span class="right" id="subtotal">0 €</span>
-                </p>
-                <p>
-                    <span>IVA 21%</span>
-                    <span class="right" id="iva">0 €</span>
-                </p>
-                <br>
-                <hr>
-                <br>
-                <p class="resumenTotal">
-                    <span>Total</span>
-                    <span class="right" id="total">0 €</span>
-                </p>
-            </div>
+            <br><br>
+            <p>
+                <span>Subtotal</span>
+                <span class="right" id="subtotal">0 €</span>
+            </p>
+            <p>
+                <span>IVA 21%</span>
+                <span class="right" id="iva">0 €</span>
+            </p>
+            <br>
+            <hr>
+            <br>
+            <p class="resumenTotal">
+                <span>Total</span>
+                <span class="right" id="total">0 €</span>
+            </p>
         </div>
     </div>
 
-    <div class="mensaje">Actualmente Local Storage está <button id="btnLocalStorage" class="activado">Activado</button></div>
 
     <div class="contenedor">
         <div id="productos">
@@ -53,4 +53,7 @@
     <script type="module" src="app.js"></script>
 </head>
 </body>
+<footer>
+    2024 sergicente
+</footer>
 </html>
