@@ -11,9 +11,8 @@
 }
 
 html {
-    touch-action: manipulation; /* Desactiva el comportamiento predeterminado del navegador para pellizcar para hacer zoom */
-    overflow: hidden; /* Evita que el contenido se desplace al hacer zoom */
-    width: 100%; /* Asegura que el ancho de la página se mantenga */
+    touch-action: manipulation; 
+    width: 100%;
 }
 
 body {
