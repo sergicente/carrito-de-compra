@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             const botonComprar = document.createElement("button");
             nombre.innerText = p.title;
             id.innerText = p.SKU;
-            precio.innerText = p.price;
+            precio.innerText = p.price + ' €';
             botonComprar.innerHTML = `Añadir a la cesta`;
             botonComprar.classList.add("comprar");
             botonComprar.addEventListener("click", function () {
@@ -110,11 +110,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
             // Precio
             const tdPrecio = document.createElement("td");
-            tdPrecio.textContent = parseFloat(producto.price).toFixed(2);
+            tdPrecio.textContent = parseFloat(producto.price).toFixed(2)  + ' €';
 
             // Total
             const tdTotal = document.createElement("td");
-            tdTotal.textContent = parseFloat(producto.total).toFixed(2);
+            tdTotal.textContent = parseFloat(producto.total).toFixed(2) + ' €';
 
             // Añadimos todo a la nueva fila
             nuevaFila.append(tdProducto, tdCantidad, tdPrecio, tdTotal);

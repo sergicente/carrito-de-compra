@@ -38,7 +38,8 @@ th {
 
 hr {
     border: 0;
-    border-top: 1px solid #d9dee8;
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    margin: 1em 0;
 }
 
 td {
@@ -55,7 +56,7 @@ input {
 }
 
 p {
-    line-height: 3em;
+    line-height: 60px;
     display: flex;
     justify-content:
         space-between;
@@ -66,6 +67,7 @@ h1 {
     text-align: center;
     font-size: 26px;
     color:white;
+    font-weight: 400;
 }
 
 footer{
@@ -133,6 +135,7 @@ footer{
     text-align: center;
     transition: transform .15s;
     font-size: 14px;
+    z-index: 200;
 }
 
 .activado {
@@ -155,6 +158,10 @@ footer{
     min-height: 300px;
 }
 
+.totales{
+    margin-top: 2.5em;
+}
+
 .mensaje {
     position: fixed;
     top: 0px;
@@ -165,10 +172,18 @@ footer{
     text-align: center;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    z-index: 100;
 }
 
 .right {
     text-align: right;
+    font-weight: 500;
+}
+
+.left {
+    font-size: 12px;
+    opacity: 0.5;
+    font-weight: 300;
 }
 
 
