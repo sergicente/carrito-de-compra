@@ -143,6 +143,17 @@ footer{
     box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #418736 0 -3px 0 inset !important;
 }
 
+.vacia{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 216px;
+}
+
+.noMostrar{
+    display: none!important;
+}
+
 .separador{
     padding: 2em;
 }

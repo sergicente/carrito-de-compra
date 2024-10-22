@@ -2,6 +2,7 @@ import Carrito from "./Carrito.js";
 
 const tablaProductos = document.querySelector("#productos table");
 const listadoProductos = document.querySelector("#productos")
+const cestaVacia = document.querySelector(".vacia")
 const tablaCarrito = document.querySelector("#carrito table");
 const subtotal = document.querySelector("#subtotal");
 const botonLocalStorage = document.querySelector("#btnLocalStorage");
@@ -57,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         const productosEnElCarrito = carrito.obtenerProductos();
 
         // Añadimos la cabecera de la tabla
+        cestaVacia.classList.add('noMostrar');
         tablaCarrito.innerHTML = null;
         const cabecera = document.createElement("tr");
         const thProducto = document.createElement("th");
@@ -98,6 +100,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 } else {
                     carrito.eliminarProducto(producto.SKU);
                     actualizarCarrito();
+                }
+                // Añadimos nuevamente el mensaje de que no hay productos
+                if(carrito.calcularTotal() === 0){
+                    cestaVacia.classList.remove('noMostrar');
+                    tablaCarrito.innerHTML = null;
                 }
             });
 
