@@ -1,8 +1,8 @@
 import Carrito from "./Carrito.js";
 
 const tablaProductos = document.querySelector("#productos table");
-const listadoProductos = document.querySelector("#productos")
-const cestaVacia = document.querySelector(".vacia")
+const listadoProductos = document.querySelector("#productos");
+const cestaVacia = document.querySelector(".vacia");
 const tablaCarrito = document.querySelector("#carrito table");
 const subtotal = document.querySelector("#subtotal");
 const botonLocalStorage = document.querySelector("#btnLocalStorage");
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             const botonComprar = document.createElement("button");
             nombre.innerText = p.title;
             id.innerText = p.SKU;
-            precio.innerText = p.price + ' €';
+            precio.innerText = p.price + " €";
             botonComprar.innerHTML = `Añadir a la cesta`;
             botonComprar.classList.add("comprar");
             botonComprar.addEventListener("click", function () {
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         const productosEnElCarrito = carrito.obtenerProductos();
 
         // Añadimos la cabecera de la tabla
-        cestaVacia.classList.add('noMostrar');
+        cestaVacia.classList.add("noMostrar");
         tablaCarrito.innerHTML = null;
         const cabecera = document.createElement("tr");
         const thProducto = document.createElement("th");
@@ -102,8 +102,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     actualizarCarrito();
                 }
                 // Añadimos nuevamente el mensaje de que no hay productos
-                if(carrito.calcularTotal() === 0){
-                    cestaVacia.classList.remove('noMostrar');
+                if (carrito.calcularTotal() === 0) {
+                    cestaVacia.classList.remove("noMostrar");
                     tablaCarrito.innerHTML = null;
                 }
             });
@@ -117,11 +117,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
             // Precio
             const tdPrecio = document.createElement("td");
-            tdPrecio.textContent = parseFloat(producto.price).toFixed(2)  + ' €';
+            tdPrecio.textContent = parseFloat(producto.price).toFixed(2) + " €";
 
             // Total
             const tdTotal = document.createElement("td");
-            tdTotal.textContent = parseFloat(producto.total).toFixed(2) + ' €';
+            tdTotal.textContent = parseFloat(producto.total).toFixed(2) + " €";
 
             // Añadimos todo a la nueva fila
             nuevaFila.append(tdProducto, tdCantidad, tdPrecio, tdTotal);
@@ -147,10 +147,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     // Función que se encarga de guardar el carrito en el Local Storage
     function guardarEnLocalStorage() {
-        // Convertimos el carrito a una cadena JSON
-        const carritoComoJSON = JSON.stringify(carrito.productos);
-        // Guardar la cadena en localStorage con el nombre carrito
-        localStorage.setItem("carrito", carritoComoJSON);
+        // Convertimos el Map del carrito a un array
+        const carritoComoArray = Array.from(carrito.productos.entries());
+        // Guardar el array como json en localStorage
+        localStorage.setItem("carrito", JSON.stringify(carritoComoArray));
     }
 
     // Obtenemos el carrito desde el Local Storage una vez se carga la página
@@ -173,7 +173,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         // Cargamos el carrito solo si el botón está activado
         if (carritoEnJson && botonLocalStorage.textContent === "Activado") {
-            carrito.productos = JSON.parse(carritoEnJson);
+            // Convertimos el JSON a un array y luego lo convertimos en un Map
+            const carritoComoArray = JSON.parse(carritoEnJson);
+            carrito.productos = new Map(carritoComoArray);
             actualizarCarrito();
         }
     };
