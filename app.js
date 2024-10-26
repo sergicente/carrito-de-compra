@@ -45,7 +45,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 actualizarCarrito();
             });
             comprar.classList.add("celdacomprar");
-            aplicarEfectoPresionado(botonComprar);
             comprar.append(botonComprar);
             nuevaLinea.append(nombre, id, precio, comprar);
             tablaProductos.appendChild(nuevaLinea);
@@ -95,10 +94,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
             // Añadimos los estilos
             botonMenos.classList.add("botCantMenos");
-            aplicarEfectoPresionado(botonMenos);
             botonMas.classList.add("botCantMas");
-            aplicarEfectoPresionado(botonMas);
-
 
             // Añadimos funcionalidad al botón de restar
             botonMenos.addEventListener("click", function () {
@@ -153,28 +149,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         // Guardamos los cambios en el Local Storage
         guardarEnLocalStorage();
         console.log(carrito);
-    }
-
-    function aplicarEfectoPresionado(boton) {
-        boton.addEventListener("touchstart", function () {
-            boton.classList.add("pressed");
-        });
-    
-        boton.addEventListener("touchend", function () {
-            boton.classList.remove("pressed");
-        });
-    
-        boton.addEventListener("mousedown", function () {
-            boton.classList.add("pressed");
-        });
-    
-        boton.addEventListener("mouseup", function () {
-            boton.classList.remove("pressed");
-        });
-    
-        boton.addEventListener("mouseout", function () {
-            boton.classList.remove("pressed");
-        });
     }
 
     // Listener que escuchará si se activa o no el botón de guardado de datos en LocalStorage
