@@ -222,11 +222,7 @@ footer {
 .comprar:focus,
 .botCantMas:focus,
 .botCantMenos:focus,
-#btnLocalStorage:focus,
-.comprar:hover,
-.botCantMas:hover,
-.botCantMenos:hover,
-#btnLocalStorage:hover {
+#btnLocalStorage:focus {
     box-shadow: rgba(45, 35, 66, 0.4) 0 1px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -1px, #00000062 0 -1px 0 inset!important;
     height: 33px;
     padding-top: 5px;
