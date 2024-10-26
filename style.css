@@ -11,7 +11,7 @@
 }
 
 html {
-    touch-action: manipulation; 
+    touch-action: manipulation;
     width: 100%;
 }
 
@@ -31,7 +31,7 @@ table {
 
 th {
     height: 60px;
-    color:white;
+    color: white;
     min-width: 110px;
 
 }
@@ -45,7 +45,7 @@ hr {
 td {
     height: 80px;
     min-width: 110px;
-    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 input {
@@ -66,16 +66,16 @@ p {
 h1 {
     text-align: center;
     font-size: 26px;
-    color:white;
+    color: white;
     font-weight: 400;
 }
 
-footer{
+footer {
     font-family: "Silkscreen", monospace;
     text-shadow: 1px 1px 6px #333;
     text-align: center;
     font-size: 12px;
-    margin-bottom:5em;
+    margin-bottom: 5em;
 }
 
 #carrito>table tr th:nth-child(2),
@@ -106,7 +106,7 @@ footer{
     border-bottom-right-radius: 5px;
     padding: 5em 4em;
     width: 35%;
-    color:white;
+    color: white;
 }
 
 #productos {
@@ -123,27 +123,16 @@ footer{
 }
 
 #btnLocalStorage {
-    margin-left: 10px;
-    background-color: #ef6c5c;
-    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #934439 0 -3px 0 inset;
-    border-radius: 4px;
-    border-width: 0;
-    color: white;
-    cursor: pointer;
-    height: 40px;
     width: 140px;
-    text-align: center;
-    transition: transform .15s;
-    font-size: 14px;
     z-index: 200;
 }
 
 .activado {
     background-color: #5dc34e !important;
-    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #418736 0 -3px 0 inset !important;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -5px, #418736 0 -5px 0 inset !important;
 }
 
-.vacia{
+.vacia {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -152,11 +141,11 @@ footer{
     opacity: 0.66;
 }
 
-.noMostrar{
-    display: none!important;
+.noMostrar {
+    display: none !important;
 }
 
-.separador{
+.separador {
     padding: 2em;
 }
 
@@ -171,13 +160,17 @@ footer{
     min-height: 300px;
 }
 
-.totales{
+.totales {
     margin-top: 2.5em;
 }
 
 .mensaje {
     position: fixed;
+    display:flex;
+    align-items: end;
+    justify-content: center;
     top: 0px;
+    height: 60px;
     background-color: rgba(73, 73, 73, 0.356);
     padding: 1em;
     width: 100%;
@@ -199,44 +192,52 @@ footer{
     font-weight: 300;
 }
 
-
 .botCantMas,
 .botCantMenos,
-.comprar {
+.comprar,#btnLocalStorage {
+    padding-left: 8px;
+    padding-right: 8px;
     background-color: #d6d6d6;
     border-radius: 4px;
     border-width: 0;
-    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #aeaeba 0 -3px 0 inset;
     color: #36395A;
     cursor: pointer;
-    height: 35px;
     text-align: center;
-    transition: transform .15s;
+    transition: height 0.1s, padding-top 0.1s, box-shadow 0.1s;
     font-size: 12px;
     padding-left: 12px;
     padding-right: 12px;
     margin: 0 5px;
-}
-
-.botCantMas,
-.botCantMenos {
-    height: 25px;
-    padding-left: 8px;
-    padding-right: 8px;
-}
-
-.comprar:hover,
-.botCantMas:hover,
-.botCantMenos:hover,
-#btnLocalStorage:hover {
-    transform: translateY(-1px);
+    box-shadow: rgba(45, 35, 66, 0.4) 0 6px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -5px, #aeaeba 0 -5px 0 inset;
+    height: 36px;
+    padding-bottom: 3px;
+    
 }
 
 .comprar:active,
 .botCantMas:active,
 .botCantMenos:active,
 #btnLocalStorage:active {
-    transform: translateY(2px);
+    box-shadow: rgba(45, 35, 66, 0.4) 0 1px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -1px, #00000062 0 -1px 0 inset!important;
+    height: 33px;
+    padding-top: 5px;
+}
+
+.celdacomprar {
+    vertical-align: bottom;
+    padding-bottom: 22px;
+}
+
+.celdaMenosMas {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    height: 37px;
+}
+
+.numeros {
+    padding-bottom: 10px;
+    margin: 0 5px;
 }
 
 .resumenTotal {
@@ -247,11 +248,13 @@ footer{
 
 @media (max-width: 450px) {
 
-    .botCantMas, .botCantMenos, .comprar{
+    .botCantMas,
+    .botCantMenos,
+    .comprar {
         font-size: 10px;
     }
 
-    #productos table td{
+    #productos table td {
         min-width: 100px;
     }
 
@@ -262,8 +265,7 @@ footer{
     #productos>table tr th:nth-child(2),
     #productos>table tr th:nth-child(3),
     #productos>table tr td:nth-child(2),
-    #productos>table tr td:nth-child(3) 
-    {
+    #productos>table tr td:nth-child(3) {
         display: none;
     }
 
@@ -289,13 +291,13 @@ footer{
 
 
 @media (max-width: 600px) {
+
     #carrito>table tr th:nth-child(3),
     #carrito>table tr td:nth-child(3),
     #productos>table tr th:nth-child(2),
     #productos>table tr th:nth-child(3),
     #productos>table tr td:nth-child(2),
-    #productos>table tr td:nth-child(3) 
-    {
+    #productos>table tr td:nth-child(3) {
         display: none;
     }
 
@@ -320,8 +322,7 @@ footer{
 
 
     #productos>table tr th:nth-child(2),
-    #productos>table tr td:nth-child(2)
-    {
+    #productos>table tr td:nth-child(2) {
         display: none;
     }
 
@@ -347,9 +348,8 @@ footer{
 @media (min-width: 800px) and (max-width: 1000px) {
 
     #carrito>table tr th:nth-child(3),
-    #carrito>table tr td:nth-child(3){
-        display:none;
+    #carrito>table tr td:nth-child(3) {
+        display: none;
     }
 
 }
-

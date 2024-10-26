@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 carrito.agregarProducto(p);
                 actualizarCarrito();
             });
+            comprar.classList.add("celdacomprar");
             comprar.append(botonComprar);
             nuevaLinea.append(nombre, id, precio, comprar);
             tablaProductos.appendChild(nuevaLinea);
@@ -81,9 +82,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
             // Cantidad
             const tdCantidad = document.createElement("td");
+            const divBotones = document.createElement("div");
+            divBotones.classList.add("celdaMenosMas");
             const botonMenos = document.createElement("button");
             const botonMas = document.createElement("button");
             const cantidad = document.createElement("span");
+            cantidad.classList.add("numeros");
             botonMenos.innerText = "-";
             cantidad.innerText = producto.cantidad;
             botonMas.innerText = "+";
@@ -96,24 +100,38 @@ document.addEventListener("DOMContentLoaded", function (event) {
             botonMenos.addEventListener("click", function () {
                 if (producto.cantidad > 1) {
                     carrito.restarUnidad(producto.SKU);
-                    actualizarCarrito();
                 } else {
                     carrito.eliminarProducto(producto.SKU);
+                }
+
+                // Disparar actualizarCarrito después de 1 segundo
+                setTimeout(function () {
                     actualizarCarrito();
-                }
+                }, 100);
+
                 // Añadimos nuevamente el mensaje de que no hay productos
-                if (carrito.calcularTotal() === 0) {
-                    cestaVacia.classList.remove("noMostrar");
-                    tablaCarrito.innerHTML = null;
-                }
+                setTimeout(function () {
+                    if (carrito.calcularTotal() === 0) {
+                        cestaVacia.classList.remove("noMostrar");
+                        tablaCarrito.innerHTML = null;
+                    }
+                }, 110);
+
+
             });
 
             // Añadimos funcionalidad al botón de sumar
             botonMas.addEventListener("click", function () {
                 carrito.sumarUnidad(producto.SKU);
-                actualizarCarrito();
+
+                // Disparar actualizarCarrito después de 1 segundo
+                setTimeout(function () {
+                    actualizarCarrito();
+                }, 100);
             });
-            tdCantidad.append(botonMenos, cantidad, botonMas);
+
+            divBotones.append(botonMenos, cantidad, botonMas);
+            tdCantidad.append(divBotones);
 
             // Precio
             const tdPrecio = document.createElement("td");
@@ -130,6 +148,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         // Guardamos los cambios en el Local Storage
         guardarEnLocalStorage();
+        console.log(carrito);
     }
 
     // Listener que escuchará si se activa o no el botón de guardado de datos en LocalStorage
