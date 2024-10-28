@@ -51,6 +51,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
     }
 
+    function crearCabecera(){
+        
+    }
+
     // Función para actualizar el carrito
     function actualizarCarrito() {
         subtotal.textContent = parseFloat(carrito.calcularSubtotal()).toFixed(2) + " €";
@@ -58,93 +62,99 @@ document.addEventListener("DOMContentLoaded", function (event) {
         total.textContent = parseFloat(carrito.calcularTotal()).toFixed(2) + " €";
         const productosEnElCarrito = carrito.obtenerProductos();
 
-        // Añadimos la cabecera de la tabla
-        cestaVacia.classList.add("noMostrar");
-        tablaCarrito.innerHTML = null;
-        const cabecera = document.createElement("tr");
-        const thProducto = document.createElement("th");
-        thProducto.textContent = "Producto";
-        const thCantidad = document.createElement("th");
-        thCantidad.textContent = "Cantidad";
-        const thPrecio = document.createElement("th");
-        thPrecio.textContent = "Precio";
-        const thTotal = document.createElement("th");
-        thTotal.textContent = "Total";
-        cabecera.append(thProducto, thCantidad, thPrecio, thTotal);
-        tablaCarrito.append(cabecera);
+        if (carrito.calcularTotal() !== 0) {
 
-        // Añadimos por cada artículo en el carrito una línea en la tabla
-        productosEnElCarrito.forEach((producto) => {
-            // Producto
-            const nuevaFila = document.createElement("tr");
-            const tdProducto = document.createElement("td");
-            tdProducto.textContent = producto.title;
+            // Añadimos la cabecera de la tabla
+            cestaVacia.classList.add("noMostrar");
+            tablaCarrito.innerHTML = null;
+            const cabecera = document.createElement("tr");
+            const thProducto = document.createElement("th");
+            thProducto.textContent = "Producto";
+            const thCantidad = document.createElement("th");
+            thCantidad.textContent = "Cantidad";
+            const thPrecio = document.createElement("th");
+            thPrecio.textContent = "Precio";
+            const thTotal = document.createElement("th");
+            thTotal.textContent = "Total";
+            cabecera.append(thProducto, thCantidad, thPrecio, thTotal);
+            tablaCarrito.append(cabecera);
 
-            // Cantidad
-            const tdCantidad = document.createElement("td");
-            const divBotones = document.createElement("div");
-            divBotones.classList.add("celdaMenosMas");
-            const botonMenos = document.createElement("button");
-            const botonMas = document.createElement("button");
-            const cantidad = document.createElement("span");
-            cantidad.classList.add("numeros");
-            botonMenos.innerText = "-";
-            cantidad.innerText = producto.cantidad;
-            botonMas.innerText = "+";
 
-            // Añadimos los estilos
-            botonMenos.classList.add("botCantMenos");
-            botonMas.classList.add("botCantMas");
 
-            // Añadimos funcionalidad al botón de restar
-            botonMenos.addEventListener("click", function () {
-                if (producto.cantidad > 1) {
-                    carrito.restarUnidad(producto.SKU);
-                } else {
-                    carrito.eliminarProducto(producto.SKU);
-                }
+            // Añadimos por cada artículo en el carrito una línea en la tabla
+            productosEnElCarrito.forEach((producto) => {
+                // Producto
+                const nuevaFila = document.createElement("tr");
+                const tdProducto = document.createElement("td");
+                tdProducto.textContent = producto.title;
 
-                // Disparar actualizarCarrito después de 1 segundo
-                setTimeout(function () {
-                    actualizarCarrito();
-                }, 100);
+                // Cantidad
+                const tdCantidad = document.createElement("td");
+                const divBotones = document.createElement("div");
+                divBotones.classList.add("celdaMenosMas");
+                const botonMenos = document.createElement("button");
+                const botonMas = document.createElement("button");
+                const cantidad = document.createElement("span");
+                cantidad.classList.add("numeros");
+                botonMenos.innerText = "-";
+                cantidad.innerText = producto.cantidad;
+                botonMas.innerText = "+";
 
-                // Añadimos nuevamente el mensaje de que no hay productos
-                setTimeout(function () {
-                    if (carrito.calcularTotal() === 0) {
-                        cestaVacia.classList.remove("noMostrar");
-                        tablaCarrito.innerHTML = null;
+                // Añadimos los estilos
+                botonMenos.classList.add("botCantMenos");
+                botonMas.classList.add("botCantMas");
+
+                // Añadimos funcionalidad al botón de restar
+                botonMenos.addEventListener("click", function () {
+                    if (producto.cantidad > 1) {
+                        carrito.restarUnidad(producto.SKU);
+                    } else {
+                        carrito.eliminarProducto(producto.SKU);
                     }
-                }, 110);
+
+                    // Disparar actualizarCarrito después de 0.1 segundos
+                    setTimeout(function () {
+                        actualizarCarrito();
+                    }, 100);
+
+                    // Añadimos nuevamente el mensaje de que no hay productos
+                    setTimeout(function () {
+                        if (carrito.calcularTotal() === 0) {
+                            cestaVacia.classList.remove("noMostrar");
+                            tablaCarrito.innerHTML = null;
+                        }
+                    }, 110);
 
 
+                });
+
+                // Añadimos funcionalidad al botón de sumar
+                botonMas.addEventListener("click", function () {
+                    carrito.sumarUnidad(producto.SKU);
+
+                    // Disparar actualizarCarrito después de un instante para ver la animación del botón correctamente
+                    setTimeout(function () {
+                        actualizarCarrito();
+                    }, 100);
+                });
+
+                divBotones.append(botonMenos, cantidad, botonMas);
+                tdCantidad.append(divBotones);
+
+                // Precio
+                const tdPrecio = document.createElement("td");
+                tdPrecio.textContent = parseFloat(producto.price).toFixed(2) + " €";
+
+                // Total
+                const tdTotal = document.createElement("td");
+                tdTotal.textContent = parseFloat(producto.total).toFixed(2) + " €";
+
+                // Añadimos todo a la nueva fila
+                nuevaFila.append(tdProducto, tdCantidad, tdPrecio, tdTotal);
+                tablaCarrito.appendChild(nuevaFila);
             });
 
-            // Añadimos funcionalidad al botón de sumar
-            botonMas.addEventListener("click", function () {
-                carrito.sumarUnidad(producto.SKU);
-
-                // Disparar actualizarCarrito después de 1 segundo
-                setTimeout(function () {
-                    actualizarCarrito();
-                }, 100);
-            });
-
-            divBotones.append(botonMenos, cantidad, botonMas);
-            tdCantidad.append(divBotones);
-
-            // Precio
-            const tdPrecio = document.createElement("td");
-            tdPrecio.textContent = parseFloat(producto.price).toFixed(2) + " €";
-
-            // Total
-            const tdTotal = document.createElement("td");
-            tdTotal.textContent = parseFloat(producto.total).toFixed(2) + " €";
-
-            // Añadimos todo a la nueva fila
-            nuevaFila.append(tdProducto, tdCantidad, tdPrecio, tdTotal);
-            tablaCarrito.appendChild(nuevaFila);
-        });
+        }
 
         // Guardamos los cambios en el Local Storage
         guardarEnLocalStorage();
@@ -195,6 +205,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             // Convertimos el JSON a un array y luego lo convertimos en un Map
             const carritoComoArray = JSON.parse(carritoEnJson);
             carrito.productos = new Map(carritoComoArray);
+
             actualizarCarrito();
         }
     };

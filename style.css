@@ -79,6 +79,7 @@ footer {
     margin-bottom: 5em;
 }
 
+#carrito>table tr th:nth-child(1),
 #carrito>table tr th:nth-child(2),
 #carrito>table tr th:nth-child(3),
 #carrito>table tr th:nth-child(4),
