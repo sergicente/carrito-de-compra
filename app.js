@@ -2,6 +2,7 @@ import Carrito from "./Carrito.js";
 
 const tablaProductos = document.querySelector("#productos table");
 const listadoProductos = document.querySelector("#productos");
+let moneda = "";
 const cestaVacia = document.querySelector(".vacia");
 const tablaCarrito = document.querySelector("#carrito table");
 const subtotal = document.querySelector("#subtotal");
@@ -16,8 +17,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
     fetch("https://jsonblob.com/api/jsonBlob/1294949121184882688")
         .then((response) => response.json())
         .then((posts) => {
+            moneda = posts.currency;
             catalogoProductos = posts.products;
             crearTablaProductos(catalogoProductos);
+            actualizarCarrito();
         })
         // Añadimos también un mensaje de error que aparezca en el listado de productos
         .catch(() => {
@@ -37,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             const botonComprar = document.createElement("button");
             nombre.innerText = p.title;
             id.innerText = p.SKU;
-            precio.innerText = p.price + " €";
+            precio.innerText = p.price + " " + moneda;
             botonComprar.innerHTML = `Añadir a la cesta`;
             botonComprar.classList.add("comprar");
             botonComprar.addEventListener("click", function () {
@@ -51,19 +54,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
     }
 
-    function crearCabecera(){
-        
-    }
-
     // Función para actualizar el carrito
     function actualizarCarrito() {
-        subtotal.textContent = parseFloat(carrito.calcularSubtotal()).toFixed(2) + " €";
-        iva.textContent = parseFloat(carrito.calcularIva()).toFixed(2) + " €";
-        total.textContent = parseFloat(carrito.calcularTotal()).toFixed(2) + " €";
+        subtotal.textContent = parseFloat(carrito.calcularSubtotal()).toFixed(2) + " " + moneda;
+        iva.textContent = parseFloat(carrito.calcularIva()).toFixed(2) + " " + moneda;
+        total.textContent = parseFloat(carrito.calcularTotal()).toFixed(2) + " " + moneda;
         const productosEnElCarrito = carrito.obtenerProductos();
 
         if (carrito.calcularTotal() !== 0) {
-
             // Añadimos la cabecera de la tabla
             cestaVacia.classList.add("noMostrar");
             tablaCarrito.innerHTML = null;
@@ -78,8 +76,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
             thTotal.textContent = "Total";
             cabecera.append(thProducto, thCantidad, thPrecio, thTotal);
             tablaCarrito.append(cabecera);
-
-
 
             // Añadimos por cada artículo en el carrito una línea en la tabla
             productosEnElCarrito.forEach((producto) => {
@@ -124,8 +120,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
                             tablaCarrito.innerHTML = null;
                         }
                     }, 110);
-
-
                 });
 
                 // Añadimos funcionalidad al botón de sumar
@@ -143,22 +137,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
                 // Precio
                 const tdPrecio = document.createElement("td");
-                tdPrecio.textContent = parseFloat(producto.price).toFixed(2) + " €";
+                tdPrecio.textContent = parseFloat(producto.price).toFixed(2) + " " + moneda;
 
                 // Total
                 const tdTotal = document.createElement("td");
-                tdTotal.textContent = parseFloat(producto.total).toFixed(2) + " €";
+                tdTotal.textContent = parseFloat(producto.total).toFixed(2) + " " + moneda;
 
                 // Añadimos todo a la nueva fila
                 nuevaFila.append(tdProducto, tdCantidad, tdPrecio, tdTotal);
                 tablaCarrito.appendChild(nuevaFila);
             });
-
         }
 
         // Guardamos los cambios en el Local Storage
         guardarEnLocalStorage();
-        console.log(carrito);
     }
 
     // Listener que escuchará si se activa o no el botón de guardado de datos en LocalStorage
